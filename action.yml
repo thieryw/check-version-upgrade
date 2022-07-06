@@ -1,0 +1,11 @@
+name: "check-version-upgrade"
+description: "check if you have upgraded the version of your project"
+inputs:
+  repo_name:
+    description: "package name"
+    required: true
+    default: "${{ github.event.repository.name }}"
+
+runs:
+  using: "node16"
+  main: "dist/index.js"
