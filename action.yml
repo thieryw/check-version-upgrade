@@ -5,6 +5,14 @@ inputs:
     description: "package name"
     required: true
     default: "${{ github.event.repository.name }}"
+  repo_owner:
+   description: "repo owner name"
+   required: true
+   default: "${{ github.repository_owner }}"
+  branch: 
+    description: "branch name"
+    required: true
+    default: "${{ github.sha }}"
 
 runs:
   using: "node16"
