@@ -38,7 +38,6 @@ const { branch, repo_name, repo_owner } = getInputs();
 	setOutput("package_version", "ok");
 
 
-
 })();
 
 
