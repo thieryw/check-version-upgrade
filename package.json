@@ -1,22 +1,25 @@
 {
   "name": "check-version-upgrade",
   "version": "1.0.0",
+  "type": "module",
   "description": "check if you have upgrade project version action",
-  "main": "lib/index.js",
   "repository": "https://github.com/thieryw/check-version-upgrade",
   "author": "thieryw <williamalexthiery@hotmail.fr>",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.0.3",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "@vercel/ncc": "^0.34.0",
+    "ts-node": "^10.8.2"
   },
   "scripts": {
-    "build": "ncc build lib/index.js -o dist"
+    "build": "ncc build src/index.ts -o dist",
+    "test": "node --experimental-specifier-resolution=node --loader ts-node/esm src/test/test.ts"
   },
   "dependencies": {
     "@actions/core": "^1.9.0",
     "@actions/github": "^5.0.3",
-    "@vercel/ncc": "^0.34.0",
-    "node-fetch": "^3.2.6"
+    "node-fetch": "^3.2.6",
+    "url-join": "^5.0.0"
   }
 }

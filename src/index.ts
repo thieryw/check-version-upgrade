@@ -1,54 +1,42 @@
-import { getInput, setOutput } from "@actions/core";
-import { execSync } from "child_process";
-import fetch from "node-fetch";
+import { getInputsFactory } from "./getInputs";
+import { getPackageJson } from "./getPackageJson";
+import { getCurrentVersion } from "./getCurrentVersion";
+import { getPackageJsonVersion } from "./getPackageJsonVersion";
+import { setIsVersionUpgradedOutput } from "./setIsVersionUpgradedOutput";
 
-const repoName = getInput("repo_name");
 
-const repoOwner = getInput("repo_owner");
+const { getInputs } = getInputsFactory({
+	"inputNames": [
+		"repo_name",
+		"repo_owner",
+		"branch"
+	]
+})
 
-const branch = getInput("branch");
+const { branch, repo_name, repo_owner } = getInputs();
 
-async function getPackageJsonVersion(params: {
-	repoName: string;
-	repoOwner: string;
-	branch: string;
-}) {
-	const {branch, repoName, repoOwner} = params;
-	const out = JSON.parse(await 
-		(
-			await 
-				fetch(`https://raw.github.com/${repoOwner}/${repoName}/${branch}/package.json`)
-		)
-		.text())["version"];
-
-		return out;
-
-};
-
-function getCurrentVersion(params: {
-	repoName: string;
-}){
-
-	const { repoName } = params;
-
-	return execSync(`npm view ${repoName} version`).toString();
-
-}
-
-async function isVersionUpgraded(){
-	const packageJsonVersion = await getPackageJsonVersion({
+(async () => {
+	const {packageJson} = await getPackageJson({
 		branch,
-		repoName,
-		repoOwner
+		repo_name,
+		repo_owner
+	})
+
+	const { currentVersion } = await getCurrentVersion({
+		packageJson
 	});
-	const currentVersion = getCurrentVersion({
-		repoName
+	const { packageJsonVersion } = getPackageJsonVersion({
+		packageJson
 	});
 
-	setOutput("is_upgraded", packageJsonVersion > currentVersion);
-}
+	setIsVersionUpgradedOutput({
+		currentVersion,
+		packageJsonVersion
+	})
 
-isVersionUpgraded();
+})();
+
+
 
 
 
