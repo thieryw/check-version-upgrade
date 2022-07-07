@@ -4,7 +4,7 @@ import { getPackageJsonVersion } from "../getPackageJsonVersion"
 
 (async () => {
 	const { packageJson } = await getPackageJson({
-		"branch": "cra-template-gitlanding",
+		"branch": "f1fd26aebfa290946ad872773681252f8c903073",
 		"repo_name": "gitlanding",
 		"repo_owner": "thieryw"
 	})
@@ -17,7 +17,19 @@ import { getPackageJsonVersion } from "../getPackageJsonVersion"
 
 	console.log(currentVersion);
 	console.log(packageJsonVersion);
-	console.log(packageJson);
+
+	if(currentVersion === null){
+		console.log("null");
+		return;
+	}
+
+	if(packageJsonVersion > currentVersion){
+		console.log("upgrade");
+		return;
+
+	}
+
+	console.log("not upgrade")
 
 
 

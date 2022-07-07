@@ -2,7 +2,8 @@ import { getInputsFactory } from "./getInputs";
 import { getPackageJson } from "./getPackageJson";
 import { getCurrentVersion } from "./getCurrentVersion";
 import { getPackageJsonVersion } from "./getPackageJsonVersion";
-import { setIsVersionUpgradedOutput } from "./setIsVersionUpgradedOutput";
+//import { setIsVersionUpgradedOutput } from "./setIsVersionUpgradedOutput";
+import { setOutput } from "@actions/core";
 
 
 const { getInputs } = getInputsFactory({
@@ -16,7 +17,7 @@ const { getInputs } = getInputsFactory({
 const { branch, repo_name, repo_owner } = getInputs();
 
 (async () => {
-	const {packageJson} = await getPackageJson({
+	const { packageJson } = await getPackageJson({
 		branch,
 		repo_name,
 		repo_owner
@@ -29,10 +30,13 @@ const { branch, repo_name, repo_owner } = getInputs();
 		packageJson
 	});
 
-	setIsVersionUpgradedOutput({
+	/*setIsVersionUpgradedOutput({
 		currentVersion,
 		packageJsonVersion
-	})
+	})*/
+	setOutput("is_upgraded", true);
+	setOutput("package_version", "ok");
+
 
 })();
 

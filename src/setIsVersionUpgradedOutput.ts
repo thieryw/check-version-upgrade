@@ -6,9 +6,11 @@ export function setIsVersionUpgradedOutput(params: {
 
 }) {
 	const { currentVersion, packageJsonVersion } = params;
-	setOutput("is_upgraded", 
-		(()=>{
-			if(currentVersion === null){
+	setOutput("package_version", "ok");
+	setOutput("is_upgraded",
+
+		(() => {
+			if (currentVersion === null) {
 				return false
 			};
 			return packageJsonVersion > currentVersion;

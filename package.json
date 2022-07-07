@@ -1,7 +1,6 @@
 {
   "name": "check-version-upgrade",
   "version": "1.0.0",
-  "type": "module",
   "description": "check if you have upgrade project version action",
   "repository": "https://github.com/thieryw/check-version-upgrade",
   "author": "thieryw <williamalexthiery@hotmail.fr>",
